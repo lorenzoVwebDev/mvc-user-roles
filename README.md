@@ -1,5 +1,5 @@
 # "mvc-user-roles"
-  A node web server based on MVC that serves log files and set the allowed origins/headers for CORS. It includes the error handling middleware at the end of the chain. It also performs api crud operations on the employees mysql table. Sign Up, sign in, log out and change password mvc for a complete authorization app. Enhanced with jwt delivering and verification 
+  A node web server based on MVC that serves log files and set the allowed origins/headers for CORS. It includes the error handling middleware at the end of the chain. It also performs api crud operations on the employees mysql table. Sign Up, sign in, log out and change password mvc for a complete authorization app. Enhanced with jwt delivering and verification. User roles definition in sign up and roles verification with verifyRoles.js middleware. Roles definition into tokens.
 ## Features
 - mvc structure
 - Routing 
@@ -13,6 +13,8 @@
 - model authentication and employees to better performs data extraction and manipulation
 - jwt issuing 
 - jwt middleware verification
+- verify roles middleware
+- roles definition into tokens
 
 ## installation
 

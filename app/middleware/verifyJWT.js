@@ -16,7 +16,8 @@ const veirifyJWT = (req, res, next) => {
             if (err) {
               refreshToken(req, res);
             } else {
-              req.username = decoded
+              req.username = decoded.userInfo.username
+              req.roles = decoded.userInfo.roles
               next()
             }
           }

@@ -10,7 +10,7 @@ const mysqlQuery = (query, placeHolders, resolve, reject) => {
     host: 'localhost',
     user: 'root',
     password: process.env.MYSQL_PASSWORD,
-    database: 'mysql_user_roles'
+    database: 'mvc_user_roles'
   })
 
   connection.connect((err) => {

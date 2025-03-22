@@ -26,3 +26,8 @@
 20250321	18:08:42	error	9b744025-efe3-46be-86d4-4077f7bad9dc		password is not defined in authentication.controller.js
 20250321	18:51:16	error	f1f16e05-5571-4c53-a437-cf176989d6fc		Invalid status code: undefined in employees.controller.js
 20250321	18:52:23	error	7ef4363a-f142-4eec-a3e7-1248018e8838		Invalid status code: undefined in employees.controller.js
+20250322	11:16:45	error	03aed873-3c88-45f7-9171-9e69840d1911		Error: ER_BAD_DB_ERROR: Unknown database 'mysql_user_roles' in authentication.controller.js
+20250322	11:17:09	error	1a4885af-4edc-4f27-a329-d3a9cd5ac321		Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1 in authentication.controller.js
+20250322	11:27:00	error	02905d50-1559-49a2-991b-16b9846524f1		Error: ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: Incorrect integer value: '[object Object]' for column 'user_id' at row 1 in authentication.controller.js
+20250322	16:25:35	error	d9db2ec3-fa07-48a6-a0cf-c16f1650b74e		Error: ER_BAD_FIELD_ERROR: Unknown column '1' in 'where clause' in authentication.controller.js
+20250322	16:54:36	error	27d65811-8993-4775-ac6e-2ca8bdbcbe11		Cannot set properties of undefined (setting '0') in authentication.controller.js

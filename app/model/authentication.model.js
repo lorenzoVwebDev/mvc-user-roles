@@ -24,20 +24,30 @@ const modelSignUp = async (newUser) => {
       return [409, {'response':'user-duplicated'}];
     }
   }
-
+  
   const hashed = await bcrypt.hash(newUser.password, 10);
     
   newUser.password = hashed
   newUser.datestamp = dayjs().add(30, 'day').unix();
-
-
 
   const insert = await new Promise((resolve, reject) => {
     mysqlQuery('INSERT INTO ?? (username, email, password, datestamp) VALUES (?, ?, ?, ?)', ['users', newUser.username, newUser.email, newUser.password, newUser.datestamp], resolve, reject)
   }).then(data => data).catch(error => {
     throw new Error(error)
   })
-  
+
+  const id = await new Promise((resolve, reject) => {
+    mysqlQuery('SELECT id FROM ?? WHERE email = ?', ['users', newUser.email], resolve, reject)
+  }).then(data => data).catch(error => {
+    throw new Error(error)
+  })
+
+  const role = await new Promise((resolve, reject) => {
+    mysqlQuery('INSERT INTO roles (??, ??) VALUES (?, ?)', ['role_code', 'user_id', process.env.USER_ID, id[0].id], resolve, reject);
+  }).then(data => data).catch(error => {
+    throw new Error(error)
+  })
+    
   return [200, {'response':'user-created'}]
 }
 
@@ -65,8 +75,31 @@ const modelSignIn = async (username, password) => {
     const match = await bcrypt.compare(password, foundUser.password);
 
     if (match) {
+
+      const rolesArray = await new Promise((resolve, reject) => {
+        mysqlQuery('select role_code, id from roles left join users on roles.user_id = users.id where user_id = ?;', [foundUser.id], resolve, reject);
+      }).then(data => data).catch(error => {
+        throw new Error(error)
+      })
+
+      for (let I=0;I<rolesArray.length;I++) {
+        if (rolesArray[I].role_code) {
+          const i = (I+1).toString();
+          foundUser.roles = {
+            ...foundUser.roles, 
+            [i]: rolesArray[I].role_code
+          };
+        } 
+      }
+
+      const roles = Object.values(foundUser.roles);
+
       const accessToken = jwt.sign(
-        {"username": foundUser.username},
+        {
+          "userInfo": {
+            'username': foundUser.username,
+            'roles': roles
+          }},
         process.env.ACCESS_TOKEN,
         {expiresIn: 900}
       )
